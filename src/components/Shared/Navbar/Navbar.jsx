@@ -21,7 +21,7 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-[#8A2BE2]" to="/gallery">
+        <NavLink className="text-[#8A2BE2]" to="/upcomingMeals">
           Upcoming Meals
         </NavLink>
       </li>
@@ -84,27 +84,29 @@ const Navbar = () => {
                 >
                   <img
                     alt="User"
-                    className=" rounded-full w-10"
+                    className=" rounded-full w-12"
                     src={user.proactiveRefresh.user?.photoURL}
                   />
                 </div>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content  z-[1000] menu p-2 pb-0  bg-purple-800 border-2  rounded-box w-52"
+                  className="dropdown-content  z-[1000] menu p-0  bg-purple-800 border-2  rounded-none w-52"
                 >
-                  <li className="font-bold p-2 text-white">
+                  <li className="font-bold p-2 border-b-2 cursor-text bg-purple-950  text-white ">
                     {" "}
                     {user?.displayName}
                   </li>
 
-                  <Link to="/add-food" className="border-b-2">
-                    <li className="font-bold p-2  text-white ">Dashboard</li>
+                  <Link to="/dashboard" className="border-b-2">
+                    <li className="font-bold p-2 border-b-2 cursor-pointer bg-purple-950 hover:bg-opacity-50 text-white  ">
+                      Dashboard
+                    </li>
                   </Link>
 
-                  <li className="font-bold border-b-2 p-2 text-white ">
+                  <li className="font-bold p-2 border-b-2 cursor-pointer bg-purple-950 hover:bg-opacity-50 text-white ">
                     <button
                       onClick={logOut}
-                      className="btn  font-bold lg:text-lg bg-[#7D3C98] text-white hover:bg-purple-900 "
+                      className="btn  font-bold  bg-[#7D3C98] text-white hover:bg-purple-900 "
                     >
                       Log Out
                     </button>

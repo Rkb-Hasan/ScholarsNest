@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-
-const Card = ({ meal }) => {
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
+import { useState } from "react";
+const Card = ({ meal, like }) => {
+  const [liked, setLiked] = useState(false);
   const { _id, meal_name, category, meal_image, price, like_count } = meal;
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-sm mx-auto">
@@ -25,15 +27,31 @@ const Card = ({ meal }) => {
             <span className="font-bold text-gray-800 dark:text-gray-200">
               {price}$
             </span>
-            <span className="text-xs text-white ">
-              (Qty Available : {like_count})
-            </span>
+            <span className="text-xs text-white ">(Likes : {like_count})</span>
           </div>
-          <Link to={`/meal/${_id}`}>
-            <button className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-violet-950 rounded hover:bg-gray-700  focus:bg-gray-700  focus:outline-none">
-              Details
-            </button>
-          </Link>
+
+          <button
+            onClick={() => setLiked(true)}
+            disabled={liked}
+            className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-violet-950 rounded hover:bg-gray-700  focus:bg-gray-700  focus:outline-none disabled:bg-slate-600 disabled:cursor-not-allowed"
+          >
+            {like ? (
+              <span className="flex items-center gap-1 ">
+                {liked ? (
+                  <span className="flex items-center gap-1 ">
+                    Liked
+                    <AiFillLike />
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-1 ">
+                    Like <AiOutlineLike />
+                  </span>
+                )}
+              </span>
+            ) : (
+              " Details"
+            )}
+          </button>
         </div>
       </div>
     </div>

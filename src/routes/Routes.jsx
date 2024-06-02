@@ -18,6 +18,7 @@ import MyBookings from "../pages/Dashboard/Guest/MyBookings";
 import ManageBookings from "../pages/Dashboard/Host/ManageBookings";
 import MealDetails from "../pages/MealDetails/MealDetails";
 import Meals from "../pages/Meals/Meals";
+import UpcomingMeals from "../pages/UpcomingMeals/UpcomingMeals";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "/meals",
         element: <Meals />,
+      },
+      {
+        path: "/upcomingMeals",
+        element: <UpcomingMeals />,
       },
     ],
   },
