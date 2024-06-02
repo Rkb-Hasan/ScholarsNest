@@ -8,6 +8,10 @@ import "react-tabs/style/react-tabs.css";
 // import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Heading from "../Shared/Heading";
+import LoadingSpinner from "../Shared/LoadingSpinner";
+
+import Meals from "./Meals";
+import useAllMeal from "../../hooks/useAllMeal";
 
 const MealsByCategory = () => {
   // const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
@@ -22,6 +26,11 @@ const MealsByCategory = () => {
   // const salads = menu.filter((item) => item.category === "salad");
   // const pizzas = menu.filter((item) => item.category === "pizza");
   // const drinks = menu.filter((item) => item.category === "drinks");
+
+  const [meals, isLoading] = useAllMeal();
+
+  if (isLoading) return <LoadingSpinner></LoadingSpinner>;
+
   return (
     <div>
       <Helmet>
@@ -35,25 +44,23 @@ const MealsByCategory = () => {
         onSelect={(index) => setTabIndex(index)}
       >
         <TabList>
+          <Tab>All meals</Tab>
           <Tab>Breakfast</Tab>
           <Tab>Lunch</Tab>
           <Tab>Dinner</Tab>
-          <Tab>All meals</Tab>
         </TabList>
         <TabPanel>
-          Breakfast
-          {/* <OrderTAb items={salads}></OrderTAb> */}
+          <Meals meals={meals} category="All"></Meals>
         </TabPanel>
         <TabPanel>
-          Lunch
-          {/* <OrderTAb items={pizzas}></OrderTAb> */}
+          <Meals meals={meals} category="Breakfast"></Meals>
         </TabPanel>
         <TabPanel>
-          Dinner
-          {/* <OrderTAb items={soups}></OrderTAb> */}
+          <Meals meals={meals} category="Lunch"></Meals>
         </TabPanel>
-
-        <TabPanel>All {/* <OrderTAb items={drinks}></OrderTAb> */}</TabPanel>
+        <TabPanel>
+          <Meals meals={meals} category="Dinner"></Meals>
+        </TabPanel>
       </Tabs>
     </div>
   );

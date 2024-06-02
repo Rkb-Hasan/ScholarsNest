@@ -16,6 +16,8 @@ import AdminRoute from "./AdminRoute";
 import HostRoute from "./HostRoute";
 import MyBookings from "../pages/Dashboard/Guest/MyBookings";
 import ManageBookings from "../pages/Dashboard/Host/ManageBookings";
+import MealDetails from "../pages/MealDetails/MealDetails";
+import Meals from "../pages/Meals/Meals";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +27,14 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/meal/:id",
+        element: <MealDetails />,
+      },
+      {
+        path: "/meals",
+        element: <Meals />,
       },
     ],
   },
