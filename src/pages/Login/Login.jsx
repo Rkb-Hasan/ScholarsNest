@@ -10,8 +10,14 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state || "/";
-  const { signInWithGoogle, loading, signIn, setLoading, resetPassword } =
-    useAuth();
+  const {
+    signInWithGoogle,
+    loading,
+    signIn,
+    setLoading,
+    resetPassword,
+    saveUser,
+  } = useAuth();
   // const [email, setEmail] = useState("");
   const {
     register,
@@ -29,7 +35,7 @@ const Login = () => {
       reset();
       //navigate to home or state and show toast
       navigate(from);
-      toast.success("Sign-up successful");
+      toast.success("Sign-in successful");
     } catch (err) {
       console.log(err);
       toast.error(err.message);
@@ -56,13 +62,17 @@ const Login = () => {
   // handle google-sign-in
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle();
-
+      const userCredential = await signInWithGoogle();
+      console.log(userCredential);
+      // Get the signed-in user
+      const user = userCredential.user;
+      await saveUser(user);
       //navigate to home or state and show toast
+      // console.log(`${data} from signupgoogle`);
       navigate(from);
-
-      toast.success("Sign-up successful");
+      toast.success("Sign-in successful");
     } catch (err) {
+      setLoading(false);
       console.log(err);
       toast.error(err.message);
     }

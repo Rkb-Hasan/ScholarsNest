@@ -20,9 +20,10 @@ const SignUp = () => {
   const {
     createUser,
     signInWithGoogle,
-    updateUserProfile,
+    // updateUserProfile,
     loading,
     setLoading,
+    saveUser,
   } = useAuth();
 
   // handle sign-up
@@ -34,21 +35,24 @@ const SignUp = () => {
     // const password = form.password.value;
     // const image = form.image.files[0];
     const { email, password, name, image } = data;
-    console.log(image[0]);
+    // console.log(name);
+    // console.log(image[0]);
     try {
       setLoading(true);
       // upload image and get url
       const image_url = await imageUpload(image[0]);
       // img_url returned from imgbb
-      console.log(image_url);
+      // console.log(image_url);
       // sign-up
-      const result = await createUser(email, password);
+      await createUser(email, password, name, image_url);
 
       // update-user-profile
-      await updateUserProfile(name, image_url);
+      // await updateUserProfile(name, image_url);
 
       //navigate to home or state and show toast
+
       navigate(from);
+      // window.location.reload();
       toast.success("Sign-up successful");
     } catch (err) {
       setLoading(false);
@@ -60,9 +64,13 @@ const SignUp = () => {
   // handle google-sign-in
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle();
-
+      const userCredential = await signInWithGoogle();
+      console.log(userCredential);
+      // Get the signed-in user
+      const user = userCredential.user;
+      await saveUser(user);
       //navigate to home or state and show toast
+      // console.log(`${data} from signupgoogle`);
       navigate(from);
       toast.success("Sign-up successful");
     } catch (err) {

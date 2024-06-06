@@ -14,11 +14,17 @@ import Profile from "../pages/Dashboard/Common/Profile";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import HostRoute from "./HostRoute";
-import MyBookings from "../pages/Dashboard/Guest/MyBookings";
+
 import ManageBookings from "../pages/Dashboard/Host/ManageBookings";
 import MealDetails from "../pages/MealDetails/MealDetails";
 import Meals from "../pages/Meals/Meals";
 import UpcomingMeals from "../pages/UpcomingMeals/UpcomingMeals";
+import RequestedMeals from "../pages/Dashboard/Guest/RequestedMeals";
+import MyReviews from "../pages/Dashboard/Guest/MyReviews";
+import PaymentHistory from "../pages/Dashboard/Guest/PaymentHistory";
+import Payment from "../pages/Payment/Payment";
+import AddMeal from "../pages/Dashboard/Admin/AddMeal";
+import AllMeals from "../pages/Dashboard/Admin/AllMeals";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -41,6 +47,14 @@ export const router = createBrowserRouter([
         path: "/upcomingMeals",
         element: <UpcomingMeals />,
       },
+      {
+        path: "/payment",
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   { path: "/login", element: <Login /> },
@@ -62,10 +76,26 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-bookings",
+        path: "requestedMeals",
         element: (
           <PrivateRoute>
-            <MyBookings></MyBookings>
+            <RequestedMeals></RequestedMeals>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "myReviews",
+        element: (
+          <PrivateRoute>
+            <MyReviews></MyReviews>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "paymentHistory",
+        element: (
+          <PrivateRoute>
+            <PaymentHistory></PaymentHistory>
           </PrivateRoute>
         ),
       },
@@ -99,6 +129,42 @@ export const router = createBrowserRouter([
       },
       {
         path: "manage-users",
+        element: (
+          <PrivateRoute>
+            {/* <AdminRoute> */} <ManageUsers></ManageUsers>
+            {/* </AdminRoute> */}
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "add-meal",
+        element: (
+          <PrivateRoute>
+            {/* <AdminRoute> */} <AddMeal></AddMeal>
+            {/* </AdminRoute> */}
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "all-meals",
+        element: (
+          <PrivateRoute>
+            {/* <AdminRoute> */} <AllMeals></AllMeals>
+            {/* </AdminRoute> */}
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "all-reviews",
+        element: (
+          <PrivateRoute>
+            {/* <AdminRoute> */} <ManageUsers></ManageUsers>
+            {/* </AdminRoute> */}
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "upcoming-meals",
         element: (
           <PrivateRoute>
             {/* <AdminRoute> */} <ManageUsers></ManageUsers>

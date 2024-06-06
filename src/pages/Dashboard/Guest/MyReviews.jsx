@@ -1,10 +1,35 @@
 import { Helmet } from "react-helmet-async";
+import useAuth from "./../../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
-const MyBookings = () => {
+import LoadingSpinner from "./../../../components/Shared/LoadingSpinner";
+import ReviewDataRow from "../../../components/TableRows/ReviewDataRow";
+import useAxiosSecure from "./../../../hooks/useAxiosSecure";
+
+const MyReviews = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const {
+    data: reviews = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["reviews", user?.displayName],
+    enabled: !!user?.displayName,
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/searchMeal?reviewsBy=${user?.displayName}`
+      );
+      return data;
+    },
+  });
+  // console.log(reviews);
+  if (isLoading) return <LoadingSpinner></LoadingSpinner>;
+  if (!reviews.length) return <p>No review made yet</p>;
   return (
     <>
       <Helmet>
-        <title>My Bookings</title>
+        <title>My Reviews</title>
       </Helmet>
 
       <div className="container mx-auto px-4 sm:px-8">
@@ -18,41 +43,52 @@ const MyBookings = () => {
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Title
+                      Sl
                     </th>
                     <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Info
+                      Meal Title
                     </th>
                     <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Price
+                      Likes
                     </th>
                     <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      From
+                      Review
                     </th>
                     <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                    >
-                      To
-                    </th>
+                    ></th>
                     <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                    >
-                      Action
-                    </th>
+                    ></th>
+                    <th
+                      scope="col"
+                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    ></th>
                   </tr>
                 </thead>
-                <tbody>{/* Table Row Data */}</tbody>
+                <tbody>
+                  {/* Table Row Data */}
+                  {reviews.map((meal, idx) => (
+                    <ReviewDataRow
+                      key={meal._id}
+                      idx={idx}
+                      meal={meal}
+                      refetch={refetch}
+                      name={user?.displayName}
+                    ></ReviewDataRow>
+                  ))}
+                </tbody>
               </table>
             </div>
           </div>
@@ -62,4 +98,4 @@ const MyBookings = () => {
   );
 };
 
-export default MyBookings;
+export default MyReviews;

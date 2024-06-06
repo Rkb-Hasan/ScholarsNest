@@ -27,7 +27,7 @@ const MealsByCategory = () => {
   // const pizzas = menu.filter((item) => item.category === "pizza");
   // const drinks = menu.filter((item) => item.category === "drinks");
 
-  const [meals, isLoading] = useAllMeal();
+  const [meals, isLoading, ,] = useAllMeal();
 
   if (isLoading) return <LoadingSpinner></LoadingSpinner>;
 

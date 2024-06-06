@@ -1,34 +1,34 @@
 import { useState } from "react";
 import { GrLogout } from "react-icons/gr";
 import { FcSettings } from "react-icons/fc";
-import { BsFillHouseAddFill } from "react-icons/bs";
+// import { BsFillHouseAddFill } from "react-icons/bs";
 import { AiOutlineBars } from "react-icons/ai";
 import { BsGraphUp } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
-import { MdHomeWork } from "react-icons/md";
-import useRole from "./../../../hooks/useRole";
+// import { MdHomeWork } from "react-icons/md";
+import useRoleBadge from "./../../../hooks/useRoleBadge";
 import MenuItem from "./Menu/MenuItem";
-import HostMenu from "./Menu/HostMenu";
+// import HostMenu from "./Menu/HostMenu";
 import GuestMenu from "./Menu/GuestMenu";
 import AdminMenu from "./Menu/AdminMenu";
-import ToggleBtn from "../../Shared/Button/ToggleBtn";
+// import ToggleBtn from "../../Shared/Button/ToggleBtn";
 
 const Sidebar = () => {
   const { logOut } = useAuth();
   const [isActive, setActive] = useState(false);
-  const [toggle, setToggle] = useState(true);
-  const [role, isLoading] = useRole();
-  console.log(role);
+  // const [toggle, setToggle] = useState(true);
+  const [dbUser, isLoading] = useRoleBadge();
+  console.log(dbUser);
   // Sidebar Responsive Handler
   const handleToggle = () => {
     setActive(!isActive);
   };
-  // guest host  toggle handler
-  const toggleHandler = () => {
-    setToggle(!toggle);
-  };
+  // // guest host  toggle handler
+  // const toggleHandler = () => {
+  //   setToggle(!toggle);
+  // };
   return (
     <>
       {/* Small Screen Navbar */}
@@ -81,12 +81,12 @@ const Sidebar = () => {
           {/* Nav Items */}
           <div className="flex flex-col justify-between flex-1 mt-6">
             {/* Conditional toggle button here.. */}
-            {role === "host" && (
+            {/* {role === "host" && (
               <ToggleBtn
                 toggleHandler={toggleHandler}
                 toggle={toggle}
               ></ToggleBtn>
-            )}
+            )} */}
 
             {/*  Menu Items */}
             <nav>
@@ -96,17 +96,17 @@ const Sidebar = () => {
                 address="/dashboard"
                 icon={BsGraphUp}
               ></MenuItem>
-              {role === "guest" && <GuestMenu></GuestMenu>}
+              {dbUser?.role === "guest" && <GuestMenu></GuestMenu>}
               {/* toggle the host role */}
-              {role === "host" ? (
+              {/* {role === "host" ? (
                 toggle ? (
                   <HostMenu></HostMenu>
                 ) : (
                   <GuestMenu></GuestMenu>
                 )
-              ) : undefined}
+              ) : undefined} */}
 
-              {role === "admin" && <AdminMenu></AdminMenu>}
+              {dbUser?.role === "admin" && <AdminMenu></AdminMenu>}
             </nav>
           </div>
         </div>
@@ -116,7 +116,7 @@ const Sidebar = () => {
 
           {/* Profile Menu */}
           <MenuItem
-            label="Profile"
+            label="My Profile"
             address="/dashboard/profile"
             icon={FcSettings}
           ></MenuItem>

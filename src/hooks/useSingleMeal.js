@@ -1,22 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosCommon from "./useAxiosCommon";
 
-const useAllMeal = () => {
+const useSingleMeal = (id) => {
   const axiosCommon = useAxiosCommon();
-
   const {
-    data: meals = [],
+    data: meal = {},
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["meals"],
+    queryKey: ["meal", id],
     queryFn: async () => {
-      const { data } = await axiosCommon.get("/meals");
+      const { data } = await axiosCommon.get(`/meal/${id}`);
       return data;
     },
   });
-
-  return [meals, isLoading, refetch];
+  return [meal, isLoading, refetch];
 };
 
-export default useAllMeal;
+export default useSingleMeal;

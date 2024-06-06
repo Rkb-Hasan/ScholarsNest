@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Review = () => {
+const Review = ({ review, handleReviewForm }) => {
   return (
     <div className="my-16">
       <div className="flex justify-between items-center">
@@ -10,7 +10,7 @@ const Review = () => {
           </h2>
         </div>
         <p className=" bg-purple-200 p-2 rounded-md  text-[#8A2BE2] font-bold text-center">
-          <span>set </span>Reviews
+          <span>{review.length} : </span>Reviews
         </p>
       </div>
       <div className="divider my-2 bg-[#8A2BE2] lg:h-1 h-[2px]"></div>
@@ -24,19 +24,22 @@ const Review = () => {
               How was your experience?
             </span>
           </div>
-          <div className="flex flex-col lg:w-1/2 w-full">
+          <form
+            onSubmit={handleReviewForm}
+            className="flex flex-col lg:w-1/2 w-full"
+          >
             <textarea
               rows="5"
               placeholder="Give your review..."
               className="p-4 rounded-md resize-none dark:text-gray-800 dark:bg-gray-50"
+              name="userReview"
             ></textarea>
-            <button
-              type="button"
-              className="py-4 font-bold my-8 lg:text-lg rounded-md text-white bg-[#8A2BE2]"
-            >
-              Leave feedback
-            </button>
-          </div>
+            <input
+              type="submit"
+              className="cursor-pointer py-4 font-bold my-8 lg:text-lg rounded-md text-white bg-[#8A2BE2]"
+              value="Leave feedback"
+            ></input>
+          </form>
         </div>
         <div className="flex items-center justify-center">
           <Link

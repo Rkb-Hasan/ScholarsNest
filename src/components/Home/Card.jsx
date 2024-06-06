@@ -4,7 +4,7 @@ import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { useState } from "react";
 const Card = ({ meal, like }) => {
   const [liked, setLiked] = useState(false);
-  const { _id, meal_name, category, meal_image, price, like_count } = meal;
+  const { _id, meal_name, category, meal_image, price, likes } = meal;
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-sm mx-auto">
       <div
@@ -27,16 +27,18 @@ const Card = ({ meal, like }) => {
             <span className="font-bold text-gray-800 dark:text-gray-200">
               {price}$
             </span>
-            <span className="text-xs text-white ">(Likes : {like_count})</span>
+            <span className="text-xs text-white ">
+              (Likes : {likes.length})
+            </span>
           </div>
 
-          <button
-            onClick={() => setLiked(true)}
-            disabled={liked}
-            className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-violet-950 rounded hover:bg-gray-700  focus:bg-gray-700  focus:outline-none disabled:bg-slate-600 disabled:cursor-not-allowed"
-          >
+          <div className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-violet-950 rounded hover:bg-gray-700  focus:bg-gray-700  focus:outline-none disabled:bg-slate-600 ">
             {like ? (
-              <span className="flex items-center gap-1 ">
+              <button
+                onClick={() => setLiked(true)}
+                disabled={liked}
+                className="flex items-center gap-1 disabled:cursor-not-allowed"
+              >
                 {liked ? (
                   <span className="flex items-center gap-1 ">
                     Liked
@@ -47,11 +49,11 @@ const Card = ({ meal, like }) => {
                     Like <AiOutlineLike />
                   </span>
                 )}
-              </span>
+              </button>
             ) : (
-              " Details"
+              <Link to={`/meal/${_id}`}>Details</Link>
             )}
-          </button>
+          </div>
         </div>
       </div>
     </div>

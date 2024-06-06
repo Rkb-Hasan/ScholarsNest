@@ -1,11 +1,11 @@
 import useAuth from "../../../hooks/useAuth";
 import { Helmet } from "react-helmet-async";
-import useRole from "../../../hooks/useRole";
+import useRoleBadge from "../../../hooks/useRoleBadge";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 const Profile = () => {
   const { user, loading } = useAuth() || {};
-  const [role, isLoading] = useRole();
+  const [dbUser, isLoading] = useRoleBadge();
 
   console.log(user);
   if (loading || isLoading) return <LoadingSpinner></LoadingSpinner>;
@@ -30,7 +30,7 @@ const Profile = () => {
           </a>
 
           <p className="p-2 capitalize px-4 text-xs text-white bg-pink-500 rounded-full">
-            {role}
+            {dbUser.role}
           </p>
           <p className="mt-2 text-xl font-medium text-gray-800 ">
             User Id: {user?.uid}

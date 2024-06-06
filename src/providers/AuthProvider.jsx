@@ -21,9 +21,36 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const createUser = (email, password) => {
+  const createUser = async (email, password, name, photo) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const currentUser = userCredential.user;
+      // Update user profile
+      await updateProfile(currentUser, {
+        displayName: name,
+        photoURL: photo,
+      });
+
+      const updatedUSer = {
+        ...currentUser,
+        displayName: name,
+        photoURL: photo,
+      };
+      setUser(updatedUSer);
+
+      // save updated user to the db
+      await saveUser(updatedUSer);
+      return updatedUSer;
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const signIn = (email, password) => {
@@ -49,12 +76,14 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  const updateUserProfile = (name, photo) => {
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photo,
-    });
-  };
+  // commented to update the profile in the create user function and send the updated user to the db
+  // const updateUserProfile = (name, photo) => {
+  //   return updateProfile(auth.currentUser, {
+  //     displayName: name,
+  //     photoURL: photo,
+  //   });
+  // };
+
   // Get token from server
   const getToken = async (email) => {
     console.log(email);
@@ -67,14 +96,15 @@ const AuthProvider = ({ children }) => {
   };
 
   // save user
-  const saveUSer = async (user) => {
+  const saveUser = async (user) => {
+    console.log(user?.displayName);
     const currentUser = {
       email: user?.email,
       name: user?.displayName,
       role: "guest",
       badge: "bronze",
     };
-
+    console.log(currentUser);
     const { data } = await axios.put(
       `${import.meta.env.VITE_API_URL}/user`,
       currentUser
@@ -85,10 +115,13 @@ const AuthProvider = ({ children }) => {
   // onAuthStateChange
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      // console.log(currentUser);
       setUser(currentUser);
       if (currentUser) {
         getToken(currentUser.email);
-        saveUSer(currentUser);
+
+        // do not save the current user without update
+        // saveUser(currentUser);
       }
       setLoading(false);
     });
@@ -106,7 +139,8 @@ const AuthProvider = ({ children }) => {
     signInWithGoogle,
     resetPassword,
     logOut,
-    updateUserProfile,
+    // updateUserProfile,
+    saveUser,
   };
 
   return (

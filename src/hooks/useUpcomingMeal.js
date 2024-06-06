@@ -1,18 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosCommon from "./useAxiosCommon";
+// import { useQuery } from "@tanstack/react-query";
+// import useAxiosCommon from "./useAxiosCommon";
 
-const useAllMeal = () => {
-  const axiosCommon = useAxiosCommon();
+// const useAllMeal = () => {
+//   const axiosCommon = useAxiosCommon();
 
-  const { data: upcomingMeals = [], isLoading } = useQuery({
-    queryKey: ["upcomingMeals"],
-    queryFn: async () => {
-      const { data } = await axiosCommon.get("/upcomingMeals");
-      return data;
-    },
-  });
+//   const { data: upcomingMeals = [], isLoading } = useQuery({
+//     queryKey: ["upcomingMeals"],
+//     queryFn: async () => {
+//       const { data } = await axiosCommon.get("/upcomingMeals");
+//       return data;
+//     },
+//   });
 
-  return [upcomingMeals, isLoading];
-};
+//   return [upcomingMeals, isLoading];
+// };
 
-export default useAllMeal;
+// export default useAllMeal;

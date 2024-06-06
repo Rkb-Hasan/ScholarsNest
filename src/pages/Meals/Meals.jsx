@@ -7,7 +7,7 @@ import useAxiosCommon from "../../hooks/useAxiosCommon";
 import { useState } from "react";
 
 const Meals = () => {
-  const [meals, isLoading] = useAllMeal();
+  const [meals, isLoading, ,] = useAllMeal();
   const [showMeals, setShowMeals] = useState();
   const [error, setError] = useState();
   const axiosCommon = useAxiosCommon();

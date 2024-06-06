@@ -1,15 +1,16 @@
 import { BsFingerprint } from "react-icons/bs";
 import { GrUserAdmin } from "react-icons/gr";
 import MenuItem from ".//MenuItem";
-import useRole from "../../../../hooks/useRole";
+
 import HostRequestModal from "../../../Modals/HostRequestModal";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
+import useRoleBadge from "../../../../hooks/useRoleBadge";
 
 const GuestMenu = () => {
-  const [role] = useRole();
+  const [dbUser] = useRoleBadge();
   // for modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
@@ -44,11 +45,17 @@ const GuestMenu = () => {
     <>
       <MenuItem
         icon={BsFingerprint}
-        label="My Bookings"
-        address="my-bookings"
+        label="Requested Meals"
+        address="requestedMeals"
+      />
+      <MenuItem icon={BsFingerprint} label="My Reviews" address="myReviews" />
+      <MenuItem
+        icon={BsFingerprint}
+        label="Payment History"
+        address="paymentHistory"
       />
 
-      {role === "guest" && (
+      {dbUser.role === "guest" && (
         <div
           onClick={() => setIsModalOpen(true)}
           className="flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-purple-300   hover:text-gray-700 cursor-pointer"
