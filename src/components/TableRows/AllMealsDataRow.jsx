@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import UpdateModal from "../ModalButtons/UpdateModal";
 
 const AllMealsDataRow = ({ meal, idx, handleDeleteMeal }) => {
+  console.log(meal);
   return (
     <tr>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -23,7 +24,9 @@ const AllMealsDataRow = ({ meal, idx, handleDeleteMeal }) => {
         </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{meal?.adminName}</p>
+        <p className="text-gray-900 whitespace-no-wrap">
+          {meal?.adminName ? meal?.adminName : meal?.admin_name}
+        </p>
       </td>
 
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">

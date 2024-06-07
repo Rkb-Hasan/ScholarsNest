@@ -11,7 +11,7 @@ import { useState } from "react";
 
 const AllMeals = () => {
   // const [meals, isLoading, refetch] = useAllMeal();
-  const [sortQuery, setSortQuery] = useState();
+  const [sortQuery, setSortQuery] = useState("");
   const axiosSecure = useAxiosSecure();
   const axiosCommon = useAxiosCommon();
   // sort related
@@ -20,13 +20,19 @@ const AllMeals = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["meals"],
+    queryKey: ["meals", sortQuery],
     queryFn: async () => {
       const { data } = await axiosCommon.get(`/meals?sortBy=${sortQuery}`);
       return data;
     },
   });
 
+  // handle sort
+  const handleSort = (sortBy) => {
+    setSortQuery(sortBy);
+    refetch();
+  };
+  console.log(sortQuery);
   // delete a meal from db
   const handleDeleteMeal = (id) => {
     Swal.fire({
@@ -77,14 +83,14 @@ const AllMeals = () => {
               className="dropdown-content  z-[1000] menu p-0  bg-purple-800 border-2  rounded-none w-52"
             >
               <li
-                onClick={() => setSortQuery("likesCount")}
+                onClick={() => handleSort("likesCount")}
                 className="font-bold p-2 border-b-2 cursor-pointer bg-purple-950 hover:bg-opacity-50 text-white  "
               >
                 Likes
               </li>
 
               <li
-                onClick={() => setSortQuery("reviewsCount")}
+                onClick={() => handleSort("reviewsCount")}
                 className="font-bold p-2 border-b-2 cursor-pointer bg-purple-950 hover:bg-opacity-50 text-white "
               >
                 Reviews Count
