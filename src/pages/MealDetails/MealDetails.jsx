@@ -54,16 +54,15 @@ const MealDetails = () => {
   let checkDuplicateRequest = null;
   if (requested && requested.length) {
     checkDuplicateRequest = requested.find(
-      (req) => req.requestedUser === user?.email
+      (req) => req.requestedUserEmail === user?.email
     );
   }
   let checkDuplicateLike = null;
   if (likes && likes.length) {
     checkDuplicateLike = likes.find((like) => like.likedUser === user?.email);
   }
-  // console.log(checkDuplicateRequest);
-  // console.log(review);
-  const { mutateAsync } = useMutation({
+
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: async (updateOrInsert) => {
       try {
         const { data } = await axiosSecure.put(`/saveMeal`, updateOrInsert);
@@ -134,7 +133,9 @@ const MealDetails = () => {
       return toast.error("You already given request for this meal");
     }
     const userRequest = {
-      requestedUser: user?.email,
+      requestedUserEmail: user?.email,
+      requestedUserName: user?.displayName,
+      status: "pending",
     };
 
     try {
@@ -235,17 +236,19 @@ const MealDetails = () => {
           </div>
           <div className="flex flex-wrap justify-center items-center gap-4">
             <button
+              disabled={isPending}
               onClick={handleRequest}
               type="button"
-              className="lg:px-8  px-4 py-2   lg:py-3 lg:m-2 lg:text-lg md:font-bold font-semibold rounded-xl border  bg-violet-900 hover:bg-violet-400 text-gray-100 hover:text-black"
+              className="lg:px-8  px-4 py-2  disabled:cursor-not-allowed  lg:py-3 lg:m-2 lg:text-lg md:font-bold font-semibold rounded-xl border  bg-violet-900 hover:bg-violet-400 text-gray-100 hover:text-black"
             >
               Request
             </button>
 
             <button
+              disabled={isPending}
               onClick={handleLike}
               type="button"
-              className="lg:px-8  px-4 py-2   lg:py-3 lg:m-2 lg:text-lg md:font-bold font-semibold rounded-xl border  bg-violet-900 hover:bg-violet-400 text-gray-100 hover:text-black"
+              className="lg:px-8  px-4 py-2 disabled:cursor-not-allowed   lg:py-3 lg:m-2 lg:text-lg md:font-bold font-semibold rounded-xl border  bg-violet-900 hover:bg-violet-400 text-gray-100 hover:text-black"
             >
               {checkDuplicateLike ? (
                 <span className="flex items-center gap-1 ">
@@ -267,7 +270,11 @@ const MealDetails = () => {
         className="w-5/6 mx-auto mb-12 -mt-20 bg-gray-500 rounded-lg shadow-md lg:-mt-40"
       />
 
-      <Review review={review} handleReviewForm={handleReviewForm}></Review>
+      <Review
+        review={review}
+        handleReviewForm={handleReviewForm}
+        isPending={isPending}
+      ></Review>
     </section>
   );
 };

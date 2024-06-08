@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Review = ({ review, handleReviewForm }) => {
+const Review = ({ review, handleReviewForm, isPending }) => {
   return (
     <div className="my-16">
       <div className="flex justify-between items-center">
@@ -35,8 +35,9 @@ const Review = ({ review, handleReviewForm }) => {
               name="userReview"
             ></textarea>
             <input
+              disabled={isPending}
               type="submit"
-              className="cursor-pointer py-4 font-bold my-8 lg:text-lg rounded-md text-white bg-[#8A2BE2]"
+              className="cursor-pointer disabled:cursor-not-allowed py-4 font-bold my-8 lg:text-lg rounded-md text-white bg-[#8A2BE2]"
               value="Leave feedback"
             ></input>
           </form>

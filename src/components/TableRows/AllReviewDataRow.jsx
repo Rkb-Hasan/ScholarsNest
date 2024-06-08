@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-import UpdateModal from "../ModalButtons/UpdateModal";
 
-const AllMealsDataRow = ({ meal, idx, handleDeleteMeal }) => {
-  console.log(meal);
+const AllReviewDataRow = ({ meal, idx, handleDeleteMeal }) => {
   return (
     <tr>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -23,14 +21,7 @@ const AllMealsDataRow = ({ meal, idx, handleDeleteMeal }) => {
           {meal?.review.length}
         </p>
       </td>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{meal?.adminName}</p>
-      </td>
 
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        {/* update */}
-        <UpdateModal meal={meal}></UpdateModal>
-      </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <button
           onClick={() => handleDeleteMeal(meal?._id)}
@@ -44,11 +35,11 @@ const AllMealsDataRow = ({ meal, idx, handleDeleteMeal }) => {
         </button>
         {/* Delete modal */}
         {/* <DeleteModal
-                isOpen={isOpen}
-                closeModal={closeModal}
-                handleDelete={handleDelete}
-                id={meal?._id}
-              ></DeleteModal> */}
+              isOpen={isOpen}
+              closeModal={closeModal}
+              handleDelete={handleDelete}
+              id={meal?._id}
+            ></DeleteModal> */}
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <Link to={`/meal/${meal?._id}`}>
@@ -68,4 +59,4 @@ const AllMealsDataRow = ({ meal, idx, handleDeleteMeal }) => {
   );
 };
 
-export default AllMealsDataRow;
+export default AllReviewDataRow;

@@ -1,16 +1,16 @@
-import { Helmet } from "react-helmet-async";
-import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
-import useAuth from "./../../hooks/useAuth";
-import { imageUpload } from "../../api/utils";
+import useAuth from "../../hooks/useAuth";
+import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { imageUpload } from "../../api/utils";
+// import { Helmet } from "react-helmet-async";
 
-const AddMealForm = ({ status }) => {
+const UpcomingMealForm = ({ refetch }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state || "/dashboard/all-meals";
+  const from = location?.state || "/upcomingMeals";
   const { user } = useAuth();
   const { displayName, email } = user;
   const {
@@ -41,11 +41,11 @@ const AddMealForm = ({ status }) => {
       }
     },
     onSuccess: (data) => {
-      // refetch();
+      refetch();
       reset();
       console.log(data);
       navigate(from);
-      toast.success("Meal Added");
+      toast.success("Upcoming Meal Added");
     },
     onError: (error) => {
       reset();
@@ -81,7 +81,7 @@ const AddMealForm = ({ status }) => {
         description,
         adminEmail,
         adminName,
-        mealStatus: "present",
+        mealStatus: "upcoming",
         likes: [],
         review: [],
         requested: [],
@@ -92,27 +92,22 @@ const AddMealForm = ({ status }) => {
       console.log(err);
     }
   };
+
   return (
     <div>
-      <Helmet>
-        <title>Best Taste|Add Meal</title>
-      </Helmet>
-      <h3 className="lg:text-5xl md:text-4xl text-3xl text-[#8A2BE2] font-bold text-center">
-        Add Meal
+      <h3 className=" text-3xl text-[#8A2BE2] font-bold text-center">
+        Add Upcoming Meal
       </h3>
       <div className="divider bg-[#8A2BE2] lg:h-1 h-[2px]"></div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="border-2 bg-violet-500 border-purple-900 rounded-2xl mx-auto lg:p-10 p-5 "
+        className="border-2 bg-violet-500 border-purple-900 rounded-2xl mx-auto  p-5 "
       >
-        <div className="grid lg:grid-cols-2 lg:gap-20 mb-4">
+        <div className="grid   mb-4">
           {/* ---------------------------- */}
           <div className="space-y-4">
             <div className="space-y-3">
-              <label
-                htmlFor="meal_name"
-                className="lg:text-xl text-lg font-bold "
-              >
+              <label htmlFor="meal_name" className=" text-lg font-bold ">
                 Meal Title
               </label>
               <br />
@@ -120,7 +115,7 @@ const AddMealForm = ({ status }) => {
                 type="text"
                 name="meal_name"
                 placeholder="Meal Title.."
-                className=" border-2 focus:ring lg:p-4 p-2 rounded-lg w-full lg:text-lg"
+                className=" border-2 focus:ring  p-2 rounded-lg w-full "
                 {...register("meal_name", { required: true })}
               />
               {errors.meal_name && (
@@ -129,16 +124,13 @@ const AddMealForm = ({ status }) => {
             </div>
 
             <div className="space-y-3">
-              <label
-                htmlFor="category"
-                className="lg:text-xl text-lg font-bold "
-              >
+              <label htmlFor="category" className=" text-lg font-bold ">
                 Category
               </label>
               <br />
               <select
                 name="category"
-                className=" border-2 focus:ring lg:p-4 p-2 rounded-lg w-full lg:text-lg"
+                className=" border-2 focus:ring  p-2 rounded-lg w-full "
                 {...register("category", { required: true })}
               >
                 <option value="Breakfast">Breakfast</option>
@@ -150,10 +142,7 @@ const AddMealForm = ({ status }) => {
               )}
             </div>
             <div className="space-y-3">
-              <label
-                htmlFor="description"
-                className="lg:text-xl text-lg font-bold "
-              >
+              <label htmlFor="description" className=" text-lg font-bold ">
                 Description
               </label>
               <br />
@@ -161,7 +150,7 @@ const AddMealForm = ({ status }) => {
                 type="text"
                 name="description"
                 placeholder="Description.."
-                className=" border-2 focus:ring lg:p-4 p-2 rounded-lg w-full lg:text-lg"
+                className=" border-2 focus:ring  p-2 rounded-lg w-full "
                 {...register("description", { required: true })}
               />
               {errors.description && (
@@ -169,10 +158,7 @@ const AddMealForm = ({ status }) => {
               )}
             </div>
             <div className="space-y-3">
-              <label
-                htmlFor="ingredients"
-                className="lg:text-xl text-lg font-bold "
-              >
+              <label htmlFor="ingredients" className=" text-lg font-bold ">
                 Ingredients
               </label>
               <br />
@@ -180,7 +166,7 @@ const AddMealForm = ({ status }) => {
                 type="text"
                 name="ingredients"
                 placeholder="Ingredients.."
-                className=" border-2 focus:ring lg:p-4 p-2 rounded-lg w-full lg:text-lg"
+                className=" border-2 focus:ring  p-2 rounded-lg w-full "
                 {...register("ingredients", { required: true })}
               />
               {errors.ingredients && (
@@ -193,7 +179,7 @@ const AddMealForm = ({ status }) => {
 
           <div className="space-y-4 mt-2">
             <div className="space-y-3">
-              <label htmlFor="image" className="lg:text-xl text-lg font-bold ">
+              <label htmlFor="image" className=" text-lg font-bold ">
                 Select Image:
               </label>
               <br />
@@ -210,7 +196,7 @@ const AddMealForm = ({ status }) => {
             </div>
 
             <div className="space-y-3">
-              <label htmlFor="price" className="lg:text-xl text-lg font-bold ">
+              <label htmlFor="price" className=" text-lg font-bold ">
                 Price
               </label>
               <br />
@@ -219,7 +205,7 @@ const AddMealForm = ({ status }) => {
                 name="price"
                 min={1}
                 placeholder="Price.."
-                className=" border-2 focus:ring lg:p-4 p-2 rounded-lg w-full lg:text-lg"
+                className=" border-2 focus:ring  p-2 rounded-lg w-full "
                 {...register("price", { required: true })}
               />
               {errors.price && (
@@ -228,7 +214,7 @@ const AddMealForm = ({ status }) => {
             </div>
 
             <div className="space-y-3">
-              <label htmlFor="rating" className="lg:text-xl text-lg font-bold ">
+              <label htmlFor="rating" className=" text-lg font-bold ">
                 Rating
               </label>
               <br />
@@ -238,7 +224,7 @@ const AddMealForm = ({ status }) => {
                 min={0}
                 max={5}
                 placeholder="Rating.."
-                className=" border-2 focus:ring lg:p-4 p-2 rounded-lg w-full lg:text-lg"
+                className=" border-2 focus:ring  p-2 rounded-lg w-full "
                 {...register("rating", { required: true })}
               />
               {errors.rating && (
@@ -251,17 +237,14 @@ const AddMealForm = ({ status }) => {
         {/* ------------------------ */}
 
         <div className="mb-8 p-2 border bg-violet-700 rounded-2xl">
-          <p className="lg:text-xl text-lg font-bold  m-2  text-black  text-opacity-70 text-center">
+          <p className=" text-lg font-bold  m-2  text-black  text-opacity-70 text-center">
             Admin Info
           </p>
           <div className="divider m-0 mb-2 bg-slate-100 h-[1px]"></div>
           <div className="space-y-3 ">
-            <div className="lg:flex lg:gap-20 ">
-              <div className="flex-1">
-                <label
-                  htmlFor="adminName"
-                  className="lg:text-xl text-lg font-bold "
-                >
+            <div className="">
+              <div>
+                <label htmlFor="adminName" className=" font-bold ">
                   Admin Name
                 </label>
                 <input
@@ -269,18 +252,15 @@ const AddMealForm = ({ status }) => {
                   name="adminName"
                   value={displayName}
                   placeholder="Admin Name.."
-                  className=" border-2 focus:ring lg:p-4 p-2 rounded-lg w-full mb-4 lg:text-lg"
+                  className=" border-2 focus:ring  p-2 rounded-lg w-full mb-4 "
                   {...register("adminName", { required: true })}
                 />
                 {errors.adminName && (
                   <p className="text-red-500">This field is required</p>
                 )}
               </div>
-              <div className="flex-1">
-                <label
-                  htmlFor="adminEmail"
-                  className="lg:text-xl text-lg font-bold "
-                >
+              <div>
+                <label htmlFor="adminEmail" className=" font-bold ">
                   Admin Email
                 </label>
                 <input
@@ -288,7 +268,7 @@ const AddMealForm = ({ status }) => {
                   name="adminEmail"
                   placeholder="Admin Email.."
                   value={email}
-                  className=" border-2 focus:ring lg:p-4 p-2 rounded-lg w-full lg:mb-4  lg:text-lg"
+                  className=" border-2 focus:ring  p-2 rounded-lg w-full   "
                   {...register("adminEmail", { required: true })}
                 />
                 {errors.adminEmail && (
@@ -307,4 +287,5 @@ const AddMealForm = ({ status }) => {
     </div>
   );
 };
-export default AddMealForm;
+
+export default UpcomingMealForm;

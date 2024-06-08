@@ -14,7 +14,6 @@ import Profile from "../pages/Dashboard/Common/Profile";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import HostRoute from "./HostRoute";
-
 import ManageBookings from "../pages/Dashboard/Host/ManageBookings";
 import MealDetails from "../pages/MealDetails/MealDetails";
 import Meals from "../pages/Meals/Meals";
@@ -25,6 +24,9 @@ import PaymentHistory from "../pages/Dashboard/Guest/PaymentHistory";
 import Payment from "../pages/Payment/Payment";
 import AddMeal from "../pages/Dashboard/Admin/AddMeal";
 import AllMeals from "../pages/Dashboard/Admin/AllMeals";
+import AllReviews from "../pages/Dashboard/Admin/AllReviews";
+import ServeMeals from "../pages/Dashboard/Admin/ServeMeals";
+import AllUpcomingMeals from "../pages/Dashboard/Admin/AllUpcomingMeals";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -158,16 +160,25 @@ export const router = createBrowserRouter([
         path: "all-reviews",
         element: (
           <PrivateRoute>
-            {/* <AdminRoute> */} <ManageUsers></ManageUsers>
+            {/* <AdminRoute> */} <AllReviews></AllReviews>
             {/* </AdminRoute> */}
           </PrivateRoute>
         ),
       },
       {
-        path: "upcoming-meals",
+        path: "serve-meals",
         element: (
           <PrivateRoute>
-            {/* <AdminRoute> */} <ManageUsers></ManageUsers>
+            {/* <AdminRoute> */} <ServeMeals></ServeMeals>
+            {/* </AdminRoute> */}
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "all-upcoming-meals",
+        element: (
+          <PrivateRoute>
+            {/* <AdminRoute> */} <AllUpcomingMeals></AllUpcomingMeals>
             {/* </AdminRoute> */}
           </PrivateRoute>
         ),

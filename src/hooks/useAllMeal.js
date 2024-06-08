@@ -3,7 +3,7 @@ import useAxiosCommon from "./useAxiosCommon";
 
 const useAllMeal = () => {
   const axiosCommon = useAxiosCommon();
-
+  const mealStat = "present";
   const {
     data: meals = [],
     isLoading,
@@ -11,7 +11,7 @@ const useAllMeal = () => {
   } = useQuery({
     queryKey: ["meals"],
     queryFn: async () => {
-      const { data } = await axiosCommon.get("/meals");
+      const { data } = await axiosCommon.get(`/meals/${mealStat}`);
       return data;
     },
   });
