@@ -1,10 +1,12 @@
 import { Helmet } from "react-helmet-async";
 import useAuth from "./../../../hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import LoadingSpinner from "./../../../components/Shared/LoadingSpinner";
 import ReviewDataRow from "../../../components/TableRows/ReviewDataRow";
 import useAxiosSecure from "./../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const MyReviews = () => {
   const { user } = useAuth();
@@ -14,15 +16,60 @@ const MyReviews = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["reviews", user?.displayName],
+    queryKey: ["reviews", user?.email],
     enabled: !!user?.displayName,
     queryFn: async () => {
       const { data } = await axiosSecure.get(
-        `/searchMeal?reviewsBy=${user?.displayName}`
+        `/searchMeal?reviewsBy=${user?.email}`
       );
       return data;
     },
   });
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async (deleteQuery) => {
+      try {
+        const { data } = await axiosSecure.delete(`/deleteReview`, {
+          data: deleteQuery,
+        });
+        return data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    onSuccess: async (data) => {
+      await refetch();
+      console.log(data);
+      toast.success("review deleted successfully!");
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("Failed to delete: " + error.message);
+    },
+  });
+
+  const handleDelete = async (mealId, reviewedUserEmail) => {
+    const deleteQuery = { mealId, reviewedUserEmail };
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Delete review For this meal",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await mutateAsync(deleteQuery);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    });
+  };
+
   // console.log(reviews);
   if (isLoading) return <LoadingSpinner></LoadingSpinner>;
   if (!reviews.length) return <p>No review made yet</p>;
@@ -84,8 +131,9 @@ const MyReviews = () => {
                       key={meal._id}
                       idx={idx}
                       meal={meal}
+                      handleDelete={handleDelete}
+                      email={user?.email}
                       refetch={refetch}
-                      name={user?.displayName}
                     ></ReviewDataRow>
                   ))}
                 </tbody>

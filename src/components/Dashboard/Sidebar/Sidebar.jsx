@@ -116,7 +116,7 @@ const Sidebar = () => {
 
           {/* Profile Menu */}
           <MenuItem
-            label="My Profile"
+            label={dbUser?.role !== "admin" ? "My Profile" : "Admin Profile"}
             address="/dashboard/profile"
             icon={FcSettings}
           ></MenuItem>

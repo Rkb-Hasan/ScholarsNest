@@ -1,4 +1,4 @@
-const UpcomingMealsDataRow = ({ meal, idx }) => {
+const UpcomingMealsDataRow = ({ meal, idx, handlePublish }) => {
   return (
     <tr>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -21,7 +21,7 @@ const UpcomingMealsDataRow = ({ meal, idx }) => {
 
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <button
-          //   onClick={() => handleDeleteMeal(meal?._id)}
+          onClick={() => handlePublish(meal?._id)}
           className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
         >
           <span

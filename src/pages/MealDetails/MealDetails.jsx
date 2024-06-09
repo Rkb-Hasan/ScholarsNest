@@ -48,7 +48,7 @@ const MealDetails = () => {
   // update the review array
   let checkDuplicate = null;
   if (review && review.length) {
-    checkDuplicate = review.find((rev) => rev?.reviewBy === user?.displayName);
+    checkDuplicate = review.find((rev) => rev?.reviewBy === user?.email);
   }
 
   let checkDuplicateRequest = null;
@@ -106,7 +106,7 @@ const MealDetails = () => {
 
     const userReview = {
       review: userReviewText,
-      reviewBy: user?.displayName || "Anonymous",
+      reviewBy: user?.email || "Anonymous",
     };
 
     try {

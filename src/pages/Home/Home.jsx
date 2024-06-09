@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Banner from "../../components/Banner/Banner";
 import MealsByCategory from "../../components/MealsByCategory/MealsByCategory";
 import Membership from "../../components/Membership/Membership";
+import Feature from "../../components/Feature/Feature";
 // import Rooms from "../../components/Home/Rooms";
 
 const Home = () => {
@@ -20,10 +21,8 @@ const Home = () => {
       {/* membership */}
       <Membership></Membership>
 
-      {/* Categories section  */}
-
-      {/* Rooms section */}
-      {/* <Rooms /> */}
+      {/* feature section  */}
+      <Feature></Feature>
     </div>
   );
 };

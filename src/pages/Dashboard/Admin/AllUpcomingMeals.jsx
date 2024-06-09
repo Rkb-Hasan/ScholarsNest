@@ -1,15 +1,21 @@
 import { Helmet } from "react-helmet-async";
 // import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAxiosCommon from "../../../hooks/useAxiosCommon";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import UpcomingMealsDataRow from "../../../components/TableRows/UpcomingMealsDataRow";
 import UpcomingMealModal from "../../../components/ModalButtons/UpcomingMealModal";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
+// import { useLocation, useNavigate } from "react-router-dom";
 
 const AllUpcomingMeals = () => {
   const mealStat = "upcoming";
   const axiosCommon = useAxiosCommon();
-  // const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
+  // const navigate = useNavigate();
+  // const location = useLocation();
+  // const from = location?.state || "/meals";
 
   const {
     data: upcomingMeals = [],
@@ -23,7 +29,51 @@ const AllUpcomingMeals = () => {
     },
   });
 
-  if (isLoading) return <LoadingSpinner></LoadingSpinner>;
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (update) => {
+      try {
+        const { data } = await axiosSecure.put(`/saveMeal`, update);
+        return data;
+      } catch (error) {
+        if (error.response) {
+          // Axios error with response
+          throw new Error(
+            `Error ${error.response.status}: ${error.response.statusText}`
+          );
+        } else {
+          // Other errors
+          throw new Error(error.message);
+        }
+      }
+    },
+    onSuccess: (data) => {
+      refetch();
+      console.log(data);
+      toast.success("Published the meal");
+      // navigate(from);
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("Failed to add: " + error.message);
+    },
+  });
+
+  const handlePublish = async (id) => {
+    try {
+      const mealStatusRequest = {
+        _id: id,
+        mealStatus: "present",
+        mealStatusUpdate: true,
+      };
+      console.log(mealStatusRequest);
+      await mutateAsync(mealStatusRequest);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
+  if (isLoading || isPending) return <LoadingSpinner></LoadingSpinner>;
   if (upcomingMeals?.length === 0)
     return (
       <div className="flex justify-center items-center min-h-[calc(100vh-50px)]">
@@ -88,7 +138,7 @@ const AllUpcomingMeals = () => {
                       key={meal._id}
                       idx={idx}
                       meal={meal}
-                      // handleDeleteMeal={handleDeleteMeal}
+                      handlePublish={handlePublish}
                     ></UpcomingMealsDataRow>
                   ))}
                 </tbody>

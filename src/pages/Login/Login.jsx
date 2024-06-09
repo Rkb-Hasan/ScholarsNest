@@ -15,7 +15,7 @@ const Login = () => {
     loading,
     signIn,
     setLoading,
-    resetPassword,
+    // resetPassword,
     saveUser,
   } = useAuth();
   // const [email, setEmail] = useState("");
@@ -36,22 +36,6 @@ const Login = () => {
       //navigate to home or state and show toast
       navigate(from);
       toast.success("Sign-in successful");
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message);
-      setLoading(false);
-    }
-  };
-
-  // reset-password
-  const handleResetPassword = async () => {
-    if (!email) {
-      return toast.error("Please write your email first!!");
-    }
-    try {
-      await resetPassword(email);
-      toast.success("Request successful! Please check your email");
-      setLoading(false);
     } catch (err) {
       console.log(err);
       toast.error(err.message);
@@ -145,14 +129,14 @@ const Login = () => {
             </button>
           </div>
         </form>
-        <div className="space-y-1">
+        {/* <div className="space-y-1">
           <button
             onClick={handleResetPassword}
             className="text-xs hover:underline hover:text-rose-500 text-gray-400"
           >
             Forgot password?
           </button>
-        </div>
+        </div> */}
         <button
           disabled={loading}
           type="submit"
