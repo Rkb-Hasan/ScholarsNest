@@ -30,7 +30,7 @@ const UpcomingMeals = () => {
       <div className="flex justify-center items-center min-h-[calc(100vh-50px)]">
         <div className="flex flex-col justify-center items-center gap-2">
           <p className="text-red-500 font-bold">No Upcoming Meals to show.</p>
-          <UpcomingMealModal refetch={refetch}></UpcomingMealModal>
+          {/* <UpcomingMealModal refetch={refetch}></UpcomingMealModal> */}
         </div>
       </div>
     );

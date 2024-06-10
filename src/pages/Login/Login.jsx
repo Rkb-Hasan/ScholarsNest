@@ -56,9 +56,9 @@ const Login = () => {
       navigate(from);
       toast.success("Sign-in successful");
     } catch (err) {
-      setLoading(false);
       console.log(err);
       toast.error(err.message);
+      setLoading(false);
     }
   };
 

@@ -1,13 +1,27 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "./../../../providers/AuthProvider";
-
 import axios from "axios";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
-
+  const handleLogOut = () => {
+    logOut()
+      .then(async (result) => {
+        toast.success("Logged Out successfully!");
+        const { data } = await axios.post(
+          `${import.meta.env.VITE_API_URL}/logout`,
+          user,
+          {
+            withCredentials: true,
+          }
+        );
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
   const navLinks = (
     <>
       <li>
@@ -105,7 +119,7 @@ const Navbar = () => {
 
                   <li className="font-bold p-2 border-b-2 cursor-pointer bg-purple-950 hover:bg-opacity-50 text-white ">
                     <button
-                      onClick={logOut}
+                      onClick={handleLogOut}
                       className="btn  font-bold  bg-[#7D3C98] text-white hover:bg-purple-900 "
                     >
                       Log Out

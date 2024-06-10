@@ -13,7 +13,6 @@ import AddRoom from "../pages/Dashboard/Host/AddRoom";
 import Profile from "../pages/Dashboard/Common/Profile";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import AdminRoute from "./AdminRoute";
-import HostRoute from "./HostRoute";
 import ManageBookings from "../pages/Dashboard/Host/ManageBookings";
 import MealDetails from "../pages/MealDetails/MealDetails";
 import Meals from "../pages/Meals/Meals";
@@ -73,7 +72,7 @@ export const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-            <Statistics></Statistics>
+            <Profile></Profile>
           </PrivateRoute>
         ),
       },
@@ -101,40 +100,15 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "manage-bookings",
-        element: (
-          <PrivateRoute>
-            {/* <HostRoute> */} <ManageBookings></ManageBookings>
-            {/* </HostRoute> */}
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "add-room",
-        element: (
-          <PrivateRoute>
-            {/* <HostRoute> */} <AddRoom></AddRoom>
-            {/* </HostRoute> */}
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "my-listings",
-        element: (
-          <PrivateRoute>
-            {/* <HostRoute> */}
-            <MyListings></MyListings>
-            {/* </HostRoute> */}
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "manage-users",
         element: (
           <PrivateRoute>
-            {/* <AdminRoute> */} <ManageUsers></ManageUsers>
-            {/* </AdminRoute> */}
+            <AdminRoute>
+              {" "}
+              <ManageUsers></ManageUsers>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -142,8 +116,10 @@ export const router = createBrowserRouter([
         path: "add-meal",
         element: (
           <PrivateRoute>
-            {/* <AdminRoute> */} <AddMeal></AddMeal>
-            {/* </AdminRoute> */}
+            <AdminRoute>
+              {" "}
+              <AddMeal></AddMeal>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -151,8 +127,10 @@ export const router = createBrowserRouter([
         path: "all-meals",
         element: (
           <PrivateRoute>
-            {/* <AdminRoute> */} <AllMeals></AllMeals>
-            {/* </AdminRoute> */}
+            <AdminRoute>
+              {" "}
+              <AllMeals></AllMeals>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -160,8 +138,10 @@ export const router = createBrowserRouter([
         path: "all-reviews",
         element: (
           <PrivateRoute>
-            {/* <AdminRoute> */} <AllReviews></AllReviews>
-            {/* </AdminRoute> */}
+            <AdminRoute>
+              {" "}
+              <AllReviews></AllReviews>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -169,8 +149,10 @@ export const router = createBrowserRouter([
         path: "serve-meals",
         element: (
           <PrivateRoute>
-            {/* <AdminRoute> */} <ServeMeals></ServeMeals>
-            {/* </AdminRoute> */}
+            <AdminRoute>
+              {" "}
+              <ServeMeals></ServeMeals>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -178,16 +160,10 @@ export const router = createBrowserRouter([
         path: "all-upcoming-meals",
         element: (
           <PrivateRoute>
-            {/* <AdminRoute> */} <AllUpcomingMeals></AllUpcomingMeals>
-            {/* </AdminRoute> */}
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "profile",
-        element: (
-          <PrivateRoute>
-            <Profile></Profile>
+            <AdminRoute>
+              {" "}
+              <AllUpcomingMeals></AllUpcomingMeals>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },

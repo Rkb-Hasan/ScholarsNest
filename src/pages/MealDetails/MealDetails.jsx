@@ -9,9 +9,12 @@ import useAxiosSecure from "./../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import useSingleMeal from "../../hooks/useSingleMeal";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const MealDetails = () => {
   const { id } = useParams();
+  const { setLoading } = useContext(AuthContext);
   // const axiosCommon = useAxiosCommon();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -86,7 +89,8 @@ const MealDetails = () => {
     },
     onError: (error) => {
       console.error(error);
-      toast.error("Failed to update review: " + error.message);
+      // toast.error("Failed to update : " + error.message);
+      setLoading(false);
     },
   });
   // review related

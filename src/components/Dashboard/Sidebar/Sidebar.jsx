@@ -13,10 +13,28 @@ import MenuItem from "./Menu/MenuItem";
 // import HostMenu from "./Menu/HostMenu";
 import GuestMenu from "./Menu/GuestMenu";
 import AdminMenu from "./Menu/AdminMenu";
+import toast from "react-hot-toast";
+import axios from "axios";
 // import ToggleBtn from "../../Shared/Button/ToggleBtn";
 
 const Sidebar = () => {
-  const { logOut } = useAuth();
+  const { logOut, user } = useAuth();
+  const handleLogOut = () => {
+    logOut()
+      .then(async (result) => {
+        toast.success("Logged Out successfully!");
+        const { data } = await axios.post(
+          `${import.meta.env.VITE_API_URL}/logout`,
+          user,
+          {
+            withCredentials: true,
+          }
+        );
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
   const [isActive, setActive] = useState(false);
   // const [toggle, setToggle] = useState(true);
   const [dbUser, isLoading] = useRoleBadge();
@@ -91,11 +109,7 @@ const Sidebar = () => {
             {/*  Menu Items */}
             <nav>
               {/* Statistics */}
-              <MenuItem
-                label="Statistics"
-                address="/dashboard"
-                icon={BsGraphUp}
-              ></MenuItem>
+
               {dbUser?.role === "guest" && <GuestMenu></GuestMenu>}
               {/* toggle the host role */}
               {/* {role === "host" ? (
@@ -117,12 +131,12 @@ const Sidebar = () => {
           {/* Profile Menu */}
           <MenuItem
             label={dbUser?.role !== "admin" ? "My Profile" : "Admin Profile"}
-            address="/dashboard/profile"
+            address="/dashboard"
             icon={FcSettings}
           ></MenuItem>
 
           <button
-            onClick={logOut}
+            onClick={handleLogOut}
             className="flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-purple-300   hover:text-gray-700 transition-colors duration-300 transform"
           >
             <GrLogout className="w-5 h-5" />
