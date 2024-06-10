@@ -7,14 +7,27 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import useRoleBadge from "../../hooks/useRoleBadge";
 import LoadingSpinner from "../Shared/LoadingSpinner";
-const Card = ({ meal, like, refetch }) => {
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+
+const Card = ({ meal, like, refetch, handlePublish }) => {
+  const [reload, setReload] = useState(false);
+
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [dbUser, isLoading] = useRoleBadge();
   let checkDuplicateLike = null;
-
+  const { setLoading } = useContext(AuthContext);
   const { _id, meal_name, category, meal_image, price, likes } = meal;
 
+  useEffect(() => {
+    if (handlePublish && meal?.likes.length >= 10) {
+      handlePublish(meal);
+    }
+    console.log("from reload");
+  }, [reload]);
+
+  // console.log(meal);
   if (likes && likes.length) {
     checkDuplicateLike = likes.find((like) => like.likedUser === user?.email);
   }
@@ -26,33 +39,33 @@ const Card = ({ meal, like, refetch }) => {
         return data;
       } catch (error) {
         if (error.response) {
-          // Axios error with response
           throw new Error(
             `Error ${error.response.status}: ${error.response.statusText}`
           );
         } else {
-          // Other errors
           throw new Error(error.message);
         }
       }
     },
-    onSuccess: (data) => {
-      refetch();
-      console.log(data);
+    onSuccess: async (data) => {
+      await refetch();
+      // console.log(meal);
+      setReload(!reload);
       toast.success("Liked!!");
+      console.log(meal, "from success");
     },
     onError: (error) => {
       console.error(error);
-      toast.error("Failed to update : " + error.message);
+      setLoading(false);
     },
   });
 
-  const handleLike = async () => {
+  const handleLike = async (meal) => {
     if (checkDuplicateLike) {
       return toast.error("You already liked this meal once");
     } else if (dbUser?.badge === "bronze") {
       return toast.error(
-        "Opps! Only premium users can like the upcoming meals"
+        "Oops! Only premium users can like the upcoming meals"
       );
     }
     const userLiked = {
@@ -62,13 +75,12 @@ const Card = ({ meal, like, refetch }) => {
     try {
       const newLike = {
         _id,
-        liked: [userLiked], // Only send the new like
+        liked: [userLiked],
         requestStatus: false,
         likeStatus: true,
       };
-      console.log(newLike);
 
-      await mutateAsync(newLike);
+      await mutateAsync(newLike, meal);
     } catch (err) {
       console.error(err);
       toast.error("Error: " + err.message);
@@ -99,25 +111,22 @@ const Card = ({ meal, like, refetch }) => {
             <span className="font-bold text-gray-800 dark:text-gray-200">
               {price}$
             </span>
-            <span className="text-xs text-white ">
-              (Likes : {likes.length})
-            </span>
+            <span className="text-xs text-white ">(Likes: {likes.length})</span>
           </div>
 
-          <div className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-violet-950 rounded hover:bg-gray-700  focus:bg-gray-700  focus:outline-none disabled:bg-slate-600 ">
+          <div className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-violet-950 rounded hover:bg-gray-700 focus:bg-gray-700 focus:outline-none disabled:bg-slate-600">
             {like ? (
               <button
-                onClick={handleLike}
+                onClick={() => handleLike(meal)}
                 disabled={isPending}
                 className="flex items-center gap-1 disabled:cursor-not-allowed"
               >
                 {checkDuplicateLike ? (
-                  <span className="flex items-center gap-1 ">
-                    {likes?.length}
-                    <AiFillLike />
+                  <span className="flex items-center gap-1">
+                    {likes?.length} <AiFillLike />
                   </span>
                 ) : (
-                  <span className="flex items-center gap-1 ">
+                  <span className="flex items-center gap-1">
                     {likes?.length} <AiOutlineLike />
                   </span>
                 )}
@@ -134,6 +143,8 @@ const Card = ({ meal, like, refetch }) => {
 
 Card.propTypes = {
   meal: PropTypes.object,
+  like: PropTypes.bool,
+  refetch: PropTypes.func,
 };
 
 export default Card;

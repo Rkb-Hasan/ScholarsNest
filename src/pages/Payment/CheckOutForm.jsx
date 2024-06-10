@@ -1,12 +1,15 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 // import useCart from "./../../../hooks/useCart";
+import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "./../../hooks/useAxiosSecure";
 import useRoleBadge from "../../hooks/useRoleBadge";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 import useAuth from "../../hooks/useAuth";
+import MembershipCard from "../../components/MembershipCard/MembershipCard";
+import Heading from "../../components/Shared/Heading";
 
 const CheckOutForm = ({ badge }) => {
   const { user } = useAuth();
@@ -142,35 +145,52 @@ const CheckOutForm = ({ badge }) => {
   if (isLoading) return <LoadingSpinner></LoadingSpinner>;
   // console.log({ stripe, clientSecret });
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": {
-                color: "#aab7c4",
-              },
-            },
-            invalid: {
-              color: "#9e2146",
-            },
-          },
-        }}
-      />
-      <button
-        type="submit"
-        className="btn btn-sm btn-primary my-4"
-        disabled={!stripe || !clientSecret}
-      >
-        Pay
-      </button>
-      <p className="text-red-500"> {error}</p>
-      {transactionId && (
-        <p className="text-green-500">Your transaction id : {transactionId}</p>
-      )}
-    </form>
+    <div className="mb-10">
+      <Heading title={"Payment"} center={true}></Heading>
+      <div className="lg:flex gap-6 ">
+        <div className="flex-1 mb-10 ">
+          <form
+            onSubmit={handleSubmit}
+            className="border p-2 space-y-10 rounded-lg py-32 mx-auto bg-purple-300 bg-opacity-20"
+          >
+            <CardElement
+              options={{
+                style: {
+                  base: {
+                    fontSize: "16px",
+                    color: "#424770",
+                    "::placeholder": {
+                      color: "#aab7c4",
+                    },
+                  },
+                  invalid: {
+                    color: "#9e2146",
+                  },
+                },
+              }}
+            />
+            <div className="lg:px-10">
+              <button
+                type="submit"
+                className="lg:p-2 p-4 rounded-md cursor-pointer  bg-[#8A2BE2] text-white font-bold my-4 w-full"
+                disabled={!stripe || !clientSecret}
+              >
+                Pay
+              </button>
+            </div>
+            <p className="text-red-500"> {error}</p>
+            {transactionId && (
+              <p className="text-green-500">
+                Your transaction id : {transactionId}
+              </p>
+            )}
+          </form>
+        </div>
+        <div className="">
+          <MembershipCard badge={badge}></MembershipCard>
+        </div>
+      </div>
+    </div>
   );
 };
 

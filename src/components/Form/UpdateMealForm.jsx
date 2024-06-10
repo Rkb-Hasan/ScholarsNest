@@ -11,6 +11,8 @@ import useAuth from "../../hooks/useAuth";
 import useSingleMeal from "../../hooks/useSingleMeal";
 import LoadingSpinner from "../Shared/LoadingSpinner";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 // import useSingleMeal from "../../hooks/useSingleMeal";
 // import LoadingSpinner from "./../Shared/LoadingSpinner";
 
@@ -18,6 +20,7 @@ const UpdateMealForm = ({ mealToUpdate }) => {
   const { _id } = mealToUpdate;
   //   console.log(id);
   const axiosSecure = useAxiosSecure();
+  const { setLoading } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state || "/";
@@ -55,10 +58,12 @@ const UpdateMealForm = ({ mealToUpdate }) => {
       console.log(data);
       navigate(from);
       toast.success("Meal Updated");
+      setLoading(false);
     },
     onError: (error) => {
       console.error(error);
-      toast.error("Failed to update meal: " + error.message);
+      // toast.error("Failed to update meal: " + error.message);
+      setLoading(false);
     },
   });
 
@@ -102,9 +107,6 @@ const UpdateMealForm = ({ mealToUpdate }) => {
   if (isLoading) return <LoadingSpinner></LoadingSpinner>;
   return (
     <div>
-      <Helmet>
-        <title>Best Taste|Update Meal</title>
-      </Helmet>
       <h3 className=" text-3xl text-[#8A2BE2] font-bold text-center">
         Update Meal
       </h3>

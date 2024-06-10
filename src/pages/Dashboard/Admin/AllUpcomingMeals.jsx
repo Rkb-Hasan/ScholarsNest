@@ -48,7 +48,7 @@ const AllUpcomingMeals = () => {
     },
     onSuccess: (data) => {
       refetch();
-      console.log(data);
+      // console.log(data);
       toast.success("Published the meal");
       // navigate(from);
     },

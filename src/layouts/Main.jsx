@@ -5,7 +5,7 @@ const Main = () => {
   return (
     <div>
       <Navbar />
-      <div className="pt-10 px-20 mx-auto min-h-[calc(100vh-68px)]">
+      <div className="pt-10 lg:px-20 md:px-10 px-5 mx-auto min-h-[calc(100vh-68px)]">
         <Outlet />
       </div>
       <Footer />

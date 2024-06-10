@@ -3,13 +3,15 @@ import UpdateReviewModal from "../ModalButtons/UpdateReviewModal";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const ReviewDataRow = ({ meal, idx, email, handleDelete, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state || "/";
-
+  const { setLoading } = useContext(AuthContext);
   const { review } = meal;
   const myReview = review.find((rev) => rev.reviewBy === email);
   const { mutateAsync } = useMutation({
@@ -29,7 +31,8 @@ const ReviewDataRow = ({ meal, idx, email, handleDelete, refetch }) => {
     },
     onError: (error) => {
       console.error(error);
-      toast.error("Failed to update: " + error.message);
+      // toast.error("Failed to update: " + error.message);
+      setLoading(false);
     },
   });
 

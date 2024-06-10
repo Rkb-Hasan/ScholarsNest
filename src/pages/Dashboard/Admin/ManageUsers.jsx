@@ -106,9 +106,9 @@ const ManageUsers = () => {
                 <input
                   type="submit"
                   value="Search By"
-                  className="btn bg-violet-950 text-white hover:bg-violet-800  rounded-r-none font-bold "
+                  className="btn md:p-4 p-2 bg-violet-950 text-white hover:bg-violet-800  rounded-r-none font-bold "
                 />
-                <label className="input border border-r-0 input-bordered rounded-l-none  rounded-r-none flex items-center gap-2">
+                <label className="w-28 overflow-hidden input border border-r-0 input-bordered rounded-l-none  rounded-r-none flex items-center gap-2">
                   <input
                     name="name"
                     type="text"
@@ -116,7 +116,7 @@ const ManageUsers = () => {
                     placeholder="User name . . ."
                   />
                 </label>
-                <label className="input border  input-bordered rounded-l-none   flex items-center gap-2">
+                <label className="w-28 overflow-hidden input border  input-bordered rounded-l-none   flex items-center gap-2">
                   <input
                     name="email"
                     type="email"

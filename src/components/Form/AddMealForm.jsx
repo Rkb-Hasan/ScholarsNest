@@ -95,7 +95,7 @@ const AddMealForm = ({ status }) => {
   return (
     <div>
       <Helmet>
-        <title>Best Taste|Add Meal</title>
+        <title>Add Meal</title>
       </Helmet>
       <h3 className="lg:text-5xl md:text-4xl text-3xl text-[#8A2BE2] font-bold text-center">
         Add Meal

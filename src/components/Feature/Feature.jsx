@@ -51,14 +51,14 @@ const features = [
 
 const Feature = () => {
   return (
-    <div className="my-10">
+    <div className="md:my-10 mt-20 mb-10 ">
       <Heading title={"Features"} center={true}></Heading>
-      <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8 bg-slate-300 rounded-lg">
+      <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8 bg-purple-600 bg-opacity-30 rounded-lg">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">
+          <h2 className="md:text-3xl text-2xl font-bold sm:text-4xl">
             All the amenities you need
           </h2>
-          <p className="mt-4 text-lg ">
+          <p className="mt-4 md:text-lg  ">
             Experience the best of hostel living with our top-notch facilities
             and services.
           </p>

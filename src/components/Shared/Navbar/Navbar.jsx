@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "./../../../providers/AuthProvider";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { FaUtensils } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
@@ -39,9 +40,9 @@ const Navbar = () => {
           Upcoming Meals
         </NavLink>
       </li>
-      <li>
-        <NavLink className="text-[#8A2BE2]" to="/gallery">
-          icon
+      <li className="mt-1">
+        <NavLink className="text-[#8A2BE2]" to="/dashboard">
+          <FaUtensils className="" />
         </NavLink>
       </li>
     </>
@@ -75,12 +76,19 @@ const Navbar = () => {
               {navLinks}
             </ul>
           </div>
-          <Link
-            to="/"
-            className="btn btn-ghost lg:text-4xl font-Permanent text-[#8A2BE2] md:text-3xl font-bold text-2xl"
-          >
-            Best Taste
-          </Link>
+          <div className="flex gap-2">
+            <img
+              src="https://i.ibb.co/Qj6mJm3/ogo-png.jpg"
+              alt=""
+              className="w-12 "
+            />
+            <Link
+              to="/"
+              className="btn px-0 btn-ghost lg:text-4xl font-Permanent text-[#8A2BE2] md:text-3xl font-bold text-2xl"
+            >
+              ScholarsNest
+            </Link>
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 font-semibold text-lg">

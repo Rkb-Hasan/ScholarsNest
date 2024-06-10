@@ -13,7 +13,7 @@ const Meals = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const axiosCommon = useAxiosCommon();
-
+  console.log(meals);
   useEffect(() => {
     if (meals.length > 0) {
       setShowMeals(meals.slice(0, 6)); // Show first 10 meals initially
@@ -24,7 +24,9 @@ const Meals = () => {
 
   const fetchMoreMeals = () => {
     const newPage = page + 1;
-    const newMeals = meals.slice((newPage - 1) * 10, newPage * 10);
+    const start = page * 6;
+    const end = start + 6;
+    const newMeals = meals.slice(start, end);
     if (newMeals.length === 0) {
       setHasMore(false);
     } else {
@@ -131,7 +133,7 @@ const Meals = () => {
   return (
     <div>
       <Helmet>
-        <title>Best Taste|All Meals</title>
+        <title>ScholarsNest|All Meals</title>
       </Helmet>
 
       <h2 className="lg:text-5xl md:text-4xl text-3xl text-[#8A2BE2] font-bold text-center mt-10">
@@ -140,13 +142,13 @@ const Meals = () => {
       <div className="divider bg-[#8A2BE2] lg:h-1 h-[2px]"></div>
 
       <div className="flex flex-col">
-        <div className="flex items-center justify-center w-full">
+        <div className="lg:flex lg:items-center justify-center w-full">
           {/* name search form */}
           <form
             onSubmit={handleMealNameSearch}
             className="flex-1 flex justify-end "
           >
-            <label className="input border input-bordered rounded-r-none  flex items-center gap-2">
+            <label className="input border input-bordered rounded-r-none md:flex-1 flex items-center gap-2">
               <input
                 name="mealName"
                 type="text"
@@ -169,46 +171,48 @@ const Meals = () => {
             <input
               type="submit"
               value="Search"
-              className="btn bg-violet-950 text-white hover:bg-violet-800  rounded-l-none font-bold "
+              className="btn md:p-4 p-[8px] bg-violet-950 text-white hover:bg-violet-800  rounded-l-none font-bold "
             />
           </form>
           {/* category filter dropdown */}
-          <div className="dropdown  dropdown-bottom dropdown-end bg-inherit hover:bg-inherit border-0">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn bg-inherit hover:bg-inherit border-0  m-1"
-            >
-              <button className="btn bg-violet-950 text-white hover:bg-violet-800 rounded-sm   font-bold ">
-                Filter By Category
-              </button>
-            </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content  z-[1000] menu p-0   bg-purple-800 border-2   rounded-none w-52"
-            >
-              <li
-                onClick={handleMealCategoryFilter}
-                className="font-bold p-2 border-b-2 cursor-pointer bg-purple-950 hover:bg-opacity-50 text-white "
+          <div className="w-full lg:mx-10">
+            <div className="dropdown w-full dropdown-bottom dropdown-end bg-inherit hover:bg-inherit ">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn bg-inherit hover:bg-inherit w-full border-0  md:m-1 my-1 p-0"
               >
-                Breakfast
-              </li>
+                <button className="btn w-full bg-violet-950 text-white hover:bg-violet-800 rounded-sm   font-bold ">
+                  Filter By Category
+                </button>
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content  z-[1000] menu p-0   bg-purple-800 border-2   rounded-none w-52"
+              >
+                <li
+                  onClick={handleMealCategoryFilter}
+                  className="font-bold p-2 border-b-2 cursor-pointer bg-purple-950 hover:bg-opacity-50 text-white "
+                >
+                  Breakfast
+                </li>
 
-              <li
-                onClick={handleMealCategoryFilter}
-                className="font-bold p-2 cursor-pointer  bg-purple-950 hover:bg-opacity-50 border-b-2 text-white"
-              >
-                {" "}
-                Lunch
-              </li>
-              <li
-                onClick={handleMealCategoryFilter}
-                className="font-bold p-2 cursor-pointer  bg-purple-950 hover:bg-opacity-50 border-b-2 text-white"
-              >
-                {" "}
-                Dinner
-              </li>
-            </ul>
+                <li
+                  onClick={handleMealCategoryFilter}
+                  className="font-bold p-2 cursor-pointer  bg-purple-950 hover:bg-opacity-50 border-b-2 text-white"
+                >
+                  {" "}
+                  Lunch
+                </li>
+                <li
+                  onClick={handleMealCategoryFilter}
+                  className="font-bold p-2 cursor-pointer  bg-purple-950 hover:bg-opacity-50 border-b-2 text-white"
+                >
+                  {" "}
+                  Dinner
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* price range search form */}
@@ -216,16 +220,21 @@ const Meals = () => {
             <input
               type="submit"
               value="Filter by Price"
-              className="btn bg-violet-950 text-white hover:bg-violet-800  rounded-r-none font-bold "
+              className="btn md:p-4 p-[7px] bg-violet-950 text-white hover:bg-violet-800  rounded-r-none font-bold "
             />
             <label className="input border input-bordered rounded-l-none  flex items-center gap-2">
               <input
                 name="priceRangeFrom"
-                className=" border-r-4"
+                className=" border-r-4 lg:w-20 md:w-full w-[75px] flex-1 lg:flex-none"
                 type="number"
                 placeholder="From"
               />
-              <input name="priceRangeTo" type="number" placeholder="To" />
+              <input
+                name="priceRangeTo"
+                type="number"
+                placeholder="To"
+                className="w-[75px] lg:w-20 md:w-full flex-1 lg:flex-none"
+              />
             </label>
           </form>
         </div>

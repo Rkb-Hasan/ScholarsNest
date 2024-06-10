@@ -22,11 +22,7 @@ const Profile = () => {
         <title>Profile</title>
       </Helmet>
       <div className="bg-white shadow-lg rounded-2xl w-3/5">
-        <img
-          alt="profile"
-          src="https://wallpapercave.com/wp/wp10784415.jpg"
-          className="w-full mb-4 rounded-t-lg h-36"
-        />
+        <div className="w-full mb-4 rounded-t-lg h-36 bg-purple-500 bg-opacity-60"></div>
         <div className="flex flex-col items-center justify-center p-4 -mt-16">
           <a href="#" className="relative block">
             <img
@@ -37,7 +33,7 @@ const Profile = () => {
           </a>
 
           <p
-            className={`p-2 capitalize px-4 text-xs text-white bg-pink-500 rounded-full ${
+            className={`p-2 capitalize px-4 text-sm text-white bg-purple-500 rounded-full ${
               dbUser?.role === "admin" ? "hidden" : "block"
             }`}
           >
@@ -45,8 +41,8 @@ const Profile = () => {
           </p>
 
           <div className="w-full p-2 mt-4 rounded-lg">
-            <div className="flex flex-wrap items-center justify-between text-sm text-gray-600 ">
-              <p className="flex flex-col">
+            <div className="flex gap-2 flex-wrap items-center justify-between text-sm text-gray-600 ">
+              <p className="flex flex-col ">
                 Name
                 <span className="font-bold text-black ">
                   {user?.displayName}
@@ -65,7 +61,7 @@ const Profile = () => {
                   <p className="flex flex-col">
                     {" "}
                     <span>Meals Added</span>{" "}
-                    <span className="font-bold ms-10 text-black ">
+                    <span className="font-bold lg:ms-10 text-black ">
                       {mealsAdded?.length}
                     </span>
                   </p>

@@ -39,14 +39,14 @@ const MealDetails = () => {
     price,
     likes,
     rating,
-    post_time,
+    postTime,
     description,
     adminName,
     ingredients,
     review,
     requested,
   } = meal;
-
+  const localTime = new Date(postTime).toLocaleString();
   // review related
   // update the review array
   let checkDuplicate = null;
@@ -188,7 +188,7 @@ const MealDetails = () => {
   return (
     <section>
       <Helmet>
-        <title>Best Taste|Single Food</title>
+        <title>ScholarsNest|Single Food</title>
       </Helmet>
       <div className="bg-[#31174a]">
         <div className="container flex flex-col items-center px-4 py-16 pb-24 mx-auto text-center lg:pb-56 md:py-32 md:px-10 lg:px-32 text-gray-50">
@@ -196,10 +196,10 @@ const MealDetails = () => {
             {meal_name}
           </h1>
           <div className="divider m-0 lg:mt-4 mt-2 bg-[#8A2BE2] md:h-1 h-[2px]"></div>
-          <p className=" text-left lg:text-lg font-bold  lg:mt-6 mt-4  text-gray-50">
+          <p className=" md:text-left text-center lg:text-lg font-bold  lg:mt-6 mt-4  text-gray-50">
             {description}
           </p>
-          <div className="flex w-full lg:text-base text-sm lg:justify-center items-center gap-2 mt-4">
+          <div className="lg:flex w-full lg:text-base text-sm lg:justify-center items-center gap-2 mt-4">
             <p className="font-bold">Category : {category}</p> |
             <p>
               <span className="font-bold ">Price</span> :{" "}
@@ -211,15 +211,15 @@ const MealDetails = () => {
               <span className="font-semibold">{likes?.length}</span>
             </p>{" "}
           </div>
-          <div className="flex lg:justify-center lg:text-base w-full items-center gap-2 mt-1 mb-4">
+          <div className="lg:flex lg:justify-center lg:text-base w-full items-center gap-2 mt-1 mb-4">
             <p>
               <span className="font-bold ">Rating</span> :{" "}
               <span className="font-semibold">{rating}</span>
             </p>{" "}
             |
             <p>
-              <span className="font-bold ">Posted Time</span> :{" "}
-              <span className="font-semibold">{post_time}</span>
+              <span className="font-bold ">Posted Time</span> :
+              <span className="font-semibold"> {localTime}</span>
             </p>{" "}
             |
             <p>
@@ -228,7 +228,7 @@ const MealDetails = () => {
             </p>{" "}
           </div>
           <div className=" w-full">
-            <span className="font-bold lg:text-lg ">Ingredients</span>{" "}
+            <span className="font-bold lg:text-lg ">Ingredients : </span>{" "}
             <span className="font-semibold">{ingredients}</span>
             {/* <ul className="list-decimal border-t-2 border-[#8A2BE2] ps-6 flex justify-center gap-8 w-full mt-2 mb-4 pt-2">
               {ingredients.map((ingredient, idx) => (
@@ -238,7 +238,7 @@ const MealDetails = () => {
               ))}
             </ul> */}
           </div>
-          <div className="flex flex-wrap justify-center items-center gap-4">
+          <div className="flex lg:mt-2 md:mt-3 mt-5  flex-wrap justify-center items-center gap-4">
             <button
               disabled={isPending}
               onClick={handleRequest}

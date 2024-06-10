@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-gray-200 ">
+    <footer className="bg-purple-600 bg-opacity-70 ">
       <div className="container p-6 mx-auto">
         <div className="lg:flex">
           <div className="w-full -mx-6 lg:w-2/5">
@@ -13,9 +13,9 @@ const Footer = () => {
                 /> */}
               </a>
 
-              <p className="max-w-sm mt-2 text-gray-500 ">
-                Join 31,000+ other and never miss out on new tips, tutorials,
-                and more.
+              <p className="max-w-sm mt-2  text-black ">
+                You are always welcome in the ScholarsNest amidst the scholars
+                of city and a fine dine.
               </p>
 
               <div className="flex mt-6 -mx-2">
@@ -70,7 +70,7 @@ const Footer = () => {
           <div className="mt-6 lg:mt-0 lg:flex-1">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               <div>
-                <h3 className="text-gray-700 uppercase ">About</h3>
+                <h3 className="text-black uppercase ">About</h3>
                 <a href="#" className="block mt-2 text-sm   hover:underline">
                   Company
                 </a>
@@ -83,7 +83,7 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="text-gray-700 uppercase ">Blog</h3>
+                <h3 className="text-black uppercase ">Blog</h3>
                 <a href="#" className="block mt-2 text-sm   hover:underline">
                   Tec
                 </a>
@@ -96,7 +96,7 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="text-gray-700 uppercase ">Products</h3>
+                <h3 className="text-black uppercase ">Products</h3>
                 <a href="#" className="block mt-2 text-sm   hover:underline">
                   Mega cloud
                 </a>
@@ -109,7 +109,7 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="text-gray-700 uppercase ">Contact</h3>
+                <h3 className="text-black uppercase ">Contact</h3>
                 <span className="block mt-2 text-sm   hover:underline">
                   +1 526 654 8965
                 </span>
@@ -124,8 +124,8 @@ const Footer = () => {
         <hr className="h-px my-6 bg-gray-200 border-none " />
 
         <div>
-          <p className="text-center text-gray-500 ">
-            © Hostel 2024 - All rights reserved
+          <p className="text-center text-black ">
+            © ScholarsNest 2024 - All rights reserved
           </p>
         </div>
       </div>

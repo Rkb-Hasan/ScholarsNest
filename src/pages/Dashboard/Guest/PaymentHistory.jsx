@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "./../../../hooks/useAuth";
 import useAxiosSecure from "./../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import { Helmet } from "react-helmet-async";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
@@ -17,6 +18,9 @@ const PaymentHistory = () => {
   if (isLoading) return <LoadingSpinner></LoadingSpinner>;
   return (
     <div>
+      <Helmet>
+        <title>Payment History</title>
+      </Helmet>
       {payments && !payments.length ? (
         <p className="text-red font-bold">No payment made yet!</p>
       ) : (

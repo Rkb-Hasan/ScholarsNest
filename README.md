@@ -1,8 +1,26 @@
-# React + Vite
+# ScholarsNest
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+- Sorted Layout
+- Responsive
+- Meaningful Routes
+- Beautiful Design
+- Smooth Rendering
+- Admin DashBoard
+- User DashBoard
+- Payment System
+- Like button,Review form,Request button
+- Badge Update
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔗 Live Link
+
+https://assignment-12-c11f4.web.app
+
+## Admin Info
+
+**Admin Email :** admin@gmail.com
+
+**Admin name :** admin
+
+**Admin password :** Asdf123@

@@ -82,8 +82,13 @@ const Sidebar = () => {
       >
         <div>
           <div>
-            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-purple-300 mx-auto">
-              <Link to="/">
+            <div className="w-full hidden md:flex gap-2 px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-purple-100 bg-opacity-10 mx-auto font-bold">
+              <img
+                src="https://i.ibb.co/Qj6mJm3/ogo-png.jpg"
+                alt=""
+                className="w-12 "
+              />
+              <Link to="/" className="text-purple-900 text-xl">
                 {/* <img
                   // className='hidden md:block'
                   src="https://i.ibb.co/4ZXzmq5/logo.png"
@@ -91,7 +96,7 @@ const Sidebar = () => {
                   width="100"
                   height="100"
                 /> */}
-                hostel
+                ScholarsNest
               </Link>
             </div>
           </div>
