@@ -54,6 +54,8 @@ const Login = () => {
       //navigate to home or state and show toast
       // console.log(`${data} from signupgoogle`);
       navigate(from);
+      window.location.reload();
+
       toast.success("Sign-in successful");
     } catch (err) {
       console.log(err);

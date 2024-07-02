@@ -3,8 +3,9 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "./../../../providers/AuthProvider";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { FaUtensils } from "react-icons/fa";
-
+import { IconContext } from "react-icons";
+import { FaBell } from "react-icons/fa";
+import logo from "../../../assets/images/school.png";
 const Navbar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
   const handleLogOut = () => {
@@ -26,23 +27,75 @@ const Navbar = () => {
   const navLinks = (
     <>
       <li>
-        <NavLink className="text-[#8A2BE2]" to="/">
+        <NavLink
+          className="text-[#8A2BE2]"
+          to="/"
+          style={({ isActive, isTransitioning }) => {
+            return {
+              fontWeight: isActive ? "bold" : "",
+              color: "#8A2BE2",
+              borderBottom: isActive ? "3px solid #8A2BE2" : "white",
+              backgroundColor: "inherit",
+              viewTransitionName: isTransitioning ? "slide" : "",
+              transition: "all 0.3s ease-out",
+            };
+          }}
+        >
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-[#8A2BE2]" to="/meals">
+        <NavLink
+          className="text-[#8A2BE2]"
+          to="/meals"
+          style={({ isActive, isTransitioning }) => {
+            return {
+              fontWeight: isActive ? "bold" : "",
+              color: "#8A2BE2",
+              borderBottom: isActive ? "3px solid #8A2BE2" : "white",
+              backgroundColor: "inherit",
+              viewTransitionName: isTransitioning ? "slide" : "",
+              transition: "all 0.5s ease-out",
+            };
+          }}
+        >
           Meals
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-[#8A2BE2]" to="/upcomingMeals">
+        <NavLink
+          to="/upcomingMeals"
+          style={({ isActive, isTransitioning }) => {
+            return {
+              fontWeight: isActive ? "bold" : "",
+              color: "#8A2BE2",
+              borderBottom: isActive ? "3px solid #8A2BE2" : "white",
+              backgroundColor: "inherit",
+              viewTransitionName: isTransitioning ? "slide" : "",
+              transition: "all 0.5s ease-out",
+            };
+          }}
+        >
           Upcoming Meals
         </NavLink>
       </li>
       <li className="mt-1">
-        <NavLink className="text-[#8A2BE2]" to="/dashboard">
-          <FaUtensils className="" />
+        <NavLink
+          to="/dashboard"
+          style={({ isActive, isTransitioning }) => {
+            return {
+              fontWeight: isActive ? "bold" : "",
+              color: "#8A2BE2",
+              borderBottom: isActive ? "3px solid #8A2BE2" : "white",
+              backgroundColor: "inherit",
+              viewTransitionName: isTransitioning ? "slide" : "",
+              transition: "all 0.5s ease-out",
+            };
+          }}
+        >
+          <IconContext.Provider value={{ color: "#8A2BE2", size: "25px" }}>
+            <FaBell />
+          </IconContext.Provider>
         </NavLink>
       </li>
     </>
@@ -77,11 +130,7 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="flex gap-2">
-            <img
-              src="https://i.ibb.co/Qj6mJm3/ogo-png.jpg"
-              alt=""
-              className="w-12 "
-            />
+            <img src={logo} alt="logo" className="w-12 hidden lg:inline" />
             <Link
               to="/"
               className="btn px-0 btn-ghost lg:text-4xl font-Permanent text-[#8A2BE2] md:text-3xl font-bold text-2xl"
@@ -99,11 +148,7 @@ const Navbar = () => {
           {user ? (
             <div className="flex items-center ">
               <div className="dropdown  dropdown-bottom dropdown-end bg-inherit hover:bg-inherit border-0">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="btn bg-inherit hover:bg-inherit border-0  m-1"
-                >
+                <div tabIndex={0} role="button" className="  border-0  m-1">
                   <img
                     alt="User"
                     className=" rounded-full w-12"

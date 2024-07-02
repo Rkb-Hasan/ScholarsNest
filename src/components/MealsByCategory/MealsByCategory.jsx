@@ -3,7 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Heading from "../Shared/Heading";
 import LoadingSpinner from "../Shared/LoadingSpinner";
-
+import "react-tabs/style/react-tabs.css";
 import Meals from "./Meals";
 import useAllMeal from "../../hooks/useAllMeal";
 

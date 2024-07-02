@@ -1,18 +1,34 @@
-import { RiPoliceBadgeLine } from "react-icons/ri";
-import { BiSolidBadge } from "react-icons/bi";
-import { GiPoliceBadge } from "react-icons/gi";
+import goldBadge from "../../assets/images/gold-badge.png";
+import silverBadge from "../../assets/images/silver-badge.png";
+import platinumBadge from "../../assets/images/badge.png";
+
 const MembershipCard = ({ badge }) => {
   return (
     <div className="h-[685px]  bg-purple-600 bg-opacity-20 pt-2  flex flex-col rounded-md shadow-md  ">
       <div>
         {badge === "silver" && (
-          <BiSolidBadge className="object-cover object-center w-full rounded-t-md h-72 text-slate-400" />
+          <div className="flex justify-center">
+            <img
+              src={silverBadge}
+              className="object-cover object-center lg:w-[60%] md:w-[30%] rounded-t-md h-72"
+            />
+          </div>
         )}
         {badge === "gold" && (
-          <GiPoliceBadge className="object-cover object-center w-full rounded-t-md h-72 text-yellow-500" />
+          <div className="flex justify-center">
+            <img
+              src={goldBadge}
+              className="object-cover object-center lg:w-[60%] md:w-[30%] rounded-t-md h-72"
+            />
+          </div>
         )}
         {badge === "platinum" && (
-          <RiPoliceBadgeLine className="object-cover object-center w-full rounded-t-md h-72 text-violet-600" />
+          <div className="flex justify-center">
+            <img
+              src={platinumBadge}
+              className="object-cover object-center lg:w-[60%] md:w-[30%] rounded-t-md h-72"
+            />
+          </div>
         )}
       </div>
 

@@ -72,6 +72,7 @@ const ServeMeals = () => {
   };
 
   if (isLoading) return <LoadingSpinner></LoadingSpinner>;
+  if (!meals.length) return <p>No request made yet</p>;
 
   return (
     <>
